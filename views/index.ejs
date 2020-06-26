@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Mongo File Uploads</title>
+  <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Cinzel|Cormorant+Garamond|Indie+Flower|Karma|Lato|Mina|Montserrat|Nanum+Myeongjo|Open+Sans|Rajdhani|Raleway" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+  <style>
+    body{ font-family: 'Rajdhani', sans-serif; background-color: #FAFAFA;  }
+    img{ width: 100%;}
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 m-auto"><br><br>
+        <h1 class="text-center display-4 my-4">Mongo File Uploads</h1>
+
+        <form action="/upload" method="POST" enctype="multipart/form-data" >
+          <div class="custom-file mb-3">
+            <input type="file" name="file" id="file" class="custom-file-input">
+            <label for="file" class="custom-file-label">Choose File</label>
+          </div>
+          <input type="submit" value="Submit" class="btn btn-info btn-block">
+        </form><br><br>
+        <hr>
+        <% if(files){ %>
+          <% files.forEach(function(file) { %>
+            <div class="card card-body mb-3">
+              <% if(file.isImage) { %>
+                <img src="image/<%= file.filename %>" alt="">
+                <% } else { %>
+                  <%= file.filename %>
+                    <% } %>
+                      <form method="POST" action="/files/<%= file._id %>?_method=DELETE">
+                        <button class="btn btn-danger btn-block mt-4">Delete</button>
+                      </form>
+            </div>
+            <% }) %>
+              <% } else { %>
+                <p>No files to show</p>
+              <% } %>
+        <hr>
+        <div class="alert alert-warning" role="alert">
+            <h4 class="alert-heading">Upload Your Files To A Mongo Database Hosted Online</h4>
+            <p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.</p>
+            <hr>
+            <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
+        </div>
+      </div>
+    </div>
+
+    <br><br>
+    <div class="row">
+      <div class="col-md-8 m-auto">
+
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
